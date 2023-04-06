@@ -27,8 +27,8 @@ public class S3Operations {
     public String read(ComponentSection objectDetails) {
         String object = null;
 
-        String bucketName = objectDetails.getBucket().getName();
-        String objectKey = objectDetails.getObject().getKey();
+        String bucketName = objectDetails.getBucket();
+        String objectKey = objectDetails.getKey();
         System.out.println("Bucket " + bucketName + ", object " + objectKey);
 
         byte[] dataBytes = null;

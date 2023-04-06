@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.noisy.wobbler.formatter.FormatRequest.BucketSection;
 import com.noisy.wobbler.formatter.FormatRequest.ComponentSection;
-import com.noisy.wobbler.formatter.FormatRequest.ObjectSection;
 import com.noisy.wobbler.formatter.FormatRequest.RequestRecord;
 
 @Component
@@ -40,7 +38,7 @@ public class RabbitMQConsumer {
 
         ByteArrayInputStream bais = new ByteArrayInputStream(formattedObject.getBytes());
 
-        s3Operations.write(bais, "formatted", objectDetails.getObject().getKey());
+        s3Operations.write(bais, "formatted", objectDetails.getKey());
 
         addFormatterSection(request, objectDetails);
 
@@ -58,13 +56,10 @@ public class RabbitMQConsumer {
     List<RequestRecord> requestRecords = request.getRecords();
     RequestRecord newRecord = new RequestRecord();
     ComponentSection formatterSection = new ComponentSection();
-    BucketSection bucketSection = new BucketSection();
-    ObjectSection objectSection = new ObjectSection();
-    bucketSection.setName("formatter");
-    objectSection.setKey(objectDetails.getObject().getKey());
-    formatterSection.setBucket(bucketSection);
-    formatterSection.setObject(null);
+    formatterSection.setBucket(objectDetails.getBucket());
+    formatterSection.setKey(objectDetails.getKey());
 
+    newRecord.setFormatter(formatterSection);
     requestRecords.add(newRecord);
   }
 

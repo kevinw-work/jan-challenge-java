@@ -40,60 +40,24 @@ public class FormatRequest {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ComponentSection {
-        private BucketSection bucket;
-        private ObjectSection object;
-
-        public BucketSection getBucket() {
-            return bucket;
-        }
-        public void setBucket(BucketSection bucket) {
-            this.bucket = bucket;
-        }
-        public ObjectSection getObject() {
-            return object;
-        }
-        public void setObject(ObjectSection object) {
-            this.object = object;
-        }
-        @Override
-        public String toString() {
-            return "UnpackerSection [bucket=" + bucket + ", object=" + object + "]";
-        }
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class BucketSection {
-        private String name;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return "BucketSection [name=" + name + "]";
-        }
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class ObjectSection {
+        private String bucket;
         private String key;
 
+        public String getBucket() {
+            return bucket;
+        }
+        public void setBucket(String bucket) {
+            this.bucket = bucket;
+        }
         public String getKey() {
             return key;
         }
-
         public void setKey(String key) {
             this.key = key;
         }
-
         @Override
         public String toString() {
-            return "ObjectSection [key=" + key + "]";
+            return "UnpackerSection [bucket=" + bucket + ", key=" + key + "]";
         }
     }
 
